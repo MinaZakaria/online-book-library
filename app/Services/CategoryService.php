@@ -23,6 +23,17 @@ class CategoryService
         return $this->categoryRepository->findOrFail($id);
     }
 
+    public function list()
+    {
+        return $this->categoryRepository->all();
+    }
+
+    public function create(array $categoryDetails)
+    {
+        $category = $this->categoryRepository->create($categoryDetails);
+        return $category;
+    }
+
     public function addToFavourite(int $categoryId)
     {
         $this->findOrFail($categoryId);

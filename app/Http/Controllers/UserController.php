@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Requests\User\RegisterUserRequest;
 
 use App\Services\UserService;
 use Carbon\Carbon;
@@ -22,17 +22,17 @@ class UserController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        $data = $this->userService->authenticate($credentials);
-        return response()->json(['data' => $data], 200);
+        $response = $this->userService->authenticate($credentials);
+        return response()->json(['data' => $response], 200);
     }
 
     public function register(RegisterUserRequest $request)
     {
         $validatedData = $request->validated();
 
-        $data = $this->userService->register($validatedData);
+        $response = $this->userService->register($validatedData);
 
-        return response()->json(['data' => $data], 200);
+        return response()->json(['data' => $response], 200);
     }
 
     public function logout()

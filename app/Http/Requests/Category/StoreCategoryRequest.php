@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Category;
 
 use App\Http\Requests\ApplicationRequest;
+use Illuminate\Support\Facades\Auth;
 
-class LoginUserRequest extends ApplicationRequest
+class StoreCategoryRequest extends ApplicationRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@ class LoginUserRequest extends ApplicationRequest
      */
     public function authorize()
     {
-        return true;
+        $currentUser = Auth::user();
+        return $currentUser->isAdmin;
     }
 
     /**
@@ -24,8 +26,7 @@ class LoginUserRequest extends ApplicationRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required'
+            'name' => 'required|string|max:100|unique:categories',
         ];
     }
 }

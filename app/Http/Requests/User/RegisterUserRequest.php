@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
-class BorrowBookRequest extends ApplicationRequest
+use App\Http\Requests\ApplicationRequest;
+
+class RegisterUserRequest extends ApplicationRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +24,9 @@ class BorrowBookRequest extends ApplicationRequest
     public function rules()
     {
         return [
-            'startDate' => 'required|date_format:Y-m-d|after_or_equal:' . date('Y-m-d'),
-            'endDate' => 'required|date_format:Y-m-d|after:startDate',
+            'name'=>'required|max:55',
+            'email'=>'email|required|unique:users',
+            'password'=>'required|confirmed',
         ];
     }
 }

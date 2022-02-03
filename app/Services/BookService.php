@@ -30,6 +30,11 @@ class BookService
         return $this->bookRepository->findOrFail($id);
     }
 
+    public function list()
+    {
+        return $this->bookRepository->all();
+    }
+
     public function store(array $bookDetails, int $categoryId)
     {
         $this->categoryService->findOrFail($categoryId);

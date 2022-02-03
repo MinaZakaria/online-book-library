@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\BorrowBookRequest;
+use App\Http\Requests\Book\StoreBookRequest;
+use App\Http\Requests\Book\BorrowBookRequest;
 
 use App\Services\BookService;
 
@@ -16,11 +16,17 @@ class BookController extends Controller
         $this->bookService = $bookService;
     }
 
+    public function list()
+    {
+        $response = $this->bookService->list();
+        return response()->json(['data' => $response], 200);
+    }
+
     public function store(StoreBookRequest $request, int $categoryId)
     {
         $validatedData = $request->validated();
-        $data = $this->bookService->store($validatedData, $categoryId);
-        return response()->json(['data' => $data], 200);
+        $response = $this->bookService->store($validatedData, $categoryId);
+        return response()->json(['data' => $response], 200);
     }
 
     public function borrow(BorrowBookRequest $request, int $bookId)

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7b59358e-b8fb-4c5c-98c1-6ec7caade910",
+		"_postman_id": "6b06be7d-3d36-4406-a459-987602058e84",
 		"name": "online-book-library",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -80,7 +80,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@library.com\",\n    \"password\": \"dummy123\"\n}",
+							"raw": "{\n    \"email\": \"mina@gmail.com\",\n    \"password\": \"dummy123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,6 +95,35 @@
 							"path": [
 								"api",
 								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{ClientAccessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{pos_url}}/api/categories",
+							"host": [
+								"{{pos_url}}"
+							],
+							"path": [
+								"api",
+								"categories"
 							]
 						}
 					},
@@ -117,14 +146,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{pos_url}}/api/categories/3/add-to-fav",
+							"raw": "{{pos_url}}/api/categories/5/add-to-fav",
 							"host": [
 								"{{pos_url}}"
 							],
 							"path": [
 								"api",
 								"categories",
-								"3",
+								"5",
 								"add-to-fav"
 							]
 						}
@@ -163,6 +192,35 @@
 					"response": []
 				},
 				{
+					"name": "list books",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{ClientAccessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{pos_url}}/api/books",
+							"host": [
+								"{{pos_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "borrow book",
 					"request": {
 						"method": "POST",
@@ -180,7 +238,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"startDate\": \"2022-02-02\",\n    \"endDate\": \"2022-02-05\"\n}",
+							"raw": "{\n    \"startDate\": \"2022-02-05\",\n    \"endDate\": \"2022-02-09\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,6 +255,35 @@
 								"books",
 								"3",
 								"borrow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ClientAccessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{pos_url}}/api/logout",
+							"host": [
+								"{{pos_url}}"
+							],
+							"path": [
+								"api",
+								"logout"
 							]
 						}
 					},
@@ -254,7 +341,45 @@
 					"response": []
 				},
 				{
-					"name": "Store book",
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{AdminAccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Category new\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pos_url}}/api/categories",
+							"host": [
+								"{{pos_url}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create book",
 					"request": {
 						"method": "POST",
 						"header": [

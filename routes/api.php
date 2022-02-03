@@ -26,13 +26,13 @@ Route::controller(UserController::class)->group(function () {
 
 Route::middleware(['auth:api'])->controller(BookController::class)->group(function () {
     Route::post('/categories/{categoryId}/books', 'store');
+    Route::get('/books', 'list');
+    Route::post('/books/{bookId}/borrow', 'borrow');
 });
 
 Route::middleware(['auth:api'])->controller(CategoryController::class)->group(function () {
+    Route::get('/categories', 'list');
+    Route::post('/categories', 'store');
     Route::post('/categories/{categoryId}/add-to-fav', 'addToFavourite');
     Route::post('/categories/{categoryId}/remove-from-fav', 'removeFromFavourite');
-});
-
-Route::middleware(['auth:api'])->controller(BookController::class)->group(function () {
-    Route::post('/books/{bookId}/borrow', 'borrow');
 });

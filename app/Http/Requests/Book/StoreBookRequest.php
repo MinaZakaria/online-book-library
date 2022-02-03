@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Book;
 
+use App\Http\Requests\ApplicationRequest;
 use Illuminate\Support\Facades\Auth;
 
 class StoreBookRequest extends ApplicationRequest
