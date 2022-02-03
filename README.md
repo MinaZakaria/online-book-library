@@ -53,7 +53,7 @@ JobsFailed.txt
     alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
     ```
     Now you can use any command like `sail up` instead of `./vendor/bin/sail up`
-- any artisan/php/composer command should be run using sail
+- any artisan|php|composer command should be run using sail
 - Add `.env` file By copying `.env.example` using
     ```sh
     cp .env.example .env
@@ -61,6 +61,10 @@ JobsFailed.txt
 - Generate app key using
     ```sh
     sail artisan key:generate
+    ```
+- Generate `jwt` secret key using
+    ```sh
+    sail artisan jwt:secret
     ```
 
 # DB Connection
@@ -80,6 +84,12 @@ JobsFailed.txt
 - To connect to your application's Redis database from your local machine, you may use a graphical database management application such as `TablePlus`. By default, the Redis database is accessible at `localhost` port `6379`.
 - Default password for redis is `null`
 
+# Start other processes
+- update .env Queue variables
+    ```
+    QUEUE_CONNECTION=redis
+    REDIS_QUEUE=notifications
+    ```
 - Start laravel queue worker to listen to your `notifications` queue using
     ```sh
     sail artisan queue:work redis --tries=3 --backoff=3 --queue=notifications
@@ -88,4 +98,6 @@ JobsFailed.txt
     ```sh
     sail artisan schedule:work
     ```
+
+## Testing app
 - use postman collection & environment variables in `./postman` directory to test the app.
