@@ -39,7 +39,7 @@ You can request to Borrow any book for certain time period.
     ```sh
     alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
     ```
-Now you can use any command like `sail up` instead of `./vendor/bin/sail up`
+    Now you can use any command like `sail up` instead of `./vendor/bin/sail up`
 - any artisan/php/composer command should be run using sail
 - Add `.env` file By copying `.env.example` using
     ```sh
