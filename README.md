@@ -2,12 +2,25 @@
 ## Online Book Library API
 
 Online Book Library is an API for borrowing books online.
-You can add Categories to your favourite and get notifications when adding a book in this category
-
 You can request to Borrow any book for certain time period.
+There are alot of Book Categories in the Library and you can add any category to your favourite to be notified when adding a book in this category
 
-# Local Build
+## Technologies used
+
 - This application uses [Laravel Sail](https://laravel.com/docs/8.x/sail). a built-in solution for running your Laravel project using Docker. To get started, you only need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
+- This application uses `MySQL` DB Connection as a primary Database.
+- This application uses `Redis` as a Queue Connection. The Queue used for sending Notifications to users
+- By Laravel Scheduler. This applcation could send notifications at certain times during the day to users
+- instead of sending real notifications we Log them in files in our storage directory. you can find them in `./storage/app/`:
+```sh
+NewBookNotifications.txt,
+ReminderBefore1hBorrowingBook.txt,
+ReminderBefore6hReturningBook.txt,
+ReminderBefore24hReturningBook.txt,
+JobsFailed.txt
+```
+
+## Local Build
 - Clone the project using
     ```sh
     git clone git@github.com:MinaZakaria/online-book-library.git
@@ -49,12 +62,24 @@ You can request to Borrow any book for certain time period.
     ```sh
     sail artisan key:generate
     ```
-- Configure `.env` file.
-- you must create the database for the migrations to run manually by logging in to the mysql database through MySQL Workbench or TablePlus. Make sure the database name is the same as the one you provide in .env file
+
+# DB Connection
+- You may connect to the MySQL instance within your application by setting your `DB_HOST` environment variable within your application's `.env` file to `mysql`.
+- To connect to your application's MySQL database from your local machine, you may use a graphical database management application such as `TablePlus`. By default, the MySQL database is accessible at `localhost` port `3306`.
+- Your default DB user DB_USERNAME is `sail` and password is `password`
+
+- If not already exists, you need to create the database schema through `TablePlus`. Make sure the database name is the same as the one you provide in `.env` file
+
 - Run migrations With Seeds using
     ```sh
     sail artisan migrate:fresh --seed
     ```
+
+# Redis Connection
+- You may connect to the Redis instance within your application by setting your `REDIS_HOST` environment variable within your application's `.env` file to `redis`.
+- To connect to your application's Redis database from your local machine, you may use a graphical database management application such as `TablePlus`. By default, the Redis database is accessible at `localhost` port `6379`.
+- Default password for redis is `null`
+
 - Start laravel queue worker to listen to your `notifications` queue using
     ```sh
     sail artisan queue:work redis --tries=3 --backoff=3 --queue=notifications
