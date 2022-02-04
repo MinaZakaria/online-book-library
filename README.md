@@ -1,11 +1,11 @@
 
-## Online Book Library API
+# Online Book Library API
 
 Online Book Library is an API for borrowing books online.
 You can request to Borrow any book for certain time period.
 There are alot of Book Categories in the Library and you can add any category to your favourite to be notified when adding a book in this category
 
-## Technologies used
+# Technologies used
 
 - This application uses [Laravel Sail](https://laravel.com/docs/8.x/sail). a built-in solution for running your Laravel project using Docker. To get started, you only need to install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 - This application uses `MySQL` DB Connection as a primary Database.
@@ -20,7 +20,7 @@ ReminderBefore24hReturningBook.txt,
 JobsFailed.txt
 ```
 
-## Local Build
+# Local Build
 - Clone the project using
     ```sh
     git clone git@github.com:MinaZakaria/online-book-library.git
@@ -67,7 +67,7 @@ JobsFailed.txt
     sail artisan jwt:secret
     ```
 
-# DB Connection
+## DB Connection
 - You may connect to the MySQL instance within your application by setting your `DB_HOST` environment variable within your application's `.env` file to `mysql`.
 - To connect to your application's MySQL database from your local machine, you may use a graphical database management application such as `TablePlus`. By default, the MySQL database is accessible at `localhost` port `3306`.
 - Your default DB user DB_USERNAME is `sail` and password is `password`
@@ -79,12 +79,12 @@ JobsFailed.txt
     sail artisan migrate:fresh --seed
     ```
 
-# Redis Connection
+## Redis Connection
 - You may connect to the Redis instance within your application by setting your `REDIS_HOST` environment variable within your application's `.env` file to `redis`.
 - To connect to your application's Redis database from your local machine, you may use a graphical database management application such as `TablePlus`. By default, the Redis database is accessible at `localhost` port `6379`.
 - Default password for redis is `null`
 
-# Start other processes
+## Start other processes
 - update .env Queue variables
     ```
     QUEUE_CONNECTION=redis
@@ -99,5 +99,20 @@ JobsFailed.txt
     sail artisan schedule:work
     ```
 
-## Testing app
-- use postman collection & environment variables in `./postman` directory to test the app.
+# Testing app
+Use postman collection & environment variables in `./postman` directory to test the app.
+
+# Notifications in real life
+In real life we could use Amazon SNS Service for sending the real notifications to the users
+
+## New book added to the category
+- We can create a topic for each category in the create category API
+- When someone add category to favourite we should subscribe him to the topic of this category
+- When adding new book to the category, We will only send the BookAddedEvent to this topic.
+- Anyone subscribed to this category will receive a notification with the BoodAddedEvent data.
+
+## Reminders of Borrowing and Returning Books
+- We can create a topic for each user in the register API
+- we should subscribe the user to his topic each time he login
+- When reminder should be sent, We will only send the Reminder data to this user topic.
+- User will receive a notification with the Reminder data.
